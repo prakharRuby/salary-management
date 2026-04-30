@@ -36,6 +36,13 @@ class EmployeesController < ApplicationController
     head :no_content
   end
 
+  def metadata
+    render json: {
+        countries: Employee.distinct.pluck(:country),
+        job_titles: Employee.distinct.pluck(:job_title)
+    }
+  end
+
   private
 
   def employee_params

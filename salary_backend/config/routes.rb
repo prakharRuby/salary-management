@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :employees, only: [:create, :index]
   get "/insights", to: "insights#index"
+  get "/metadata", to: "employees#metadata"
 
   # Defines the root path route ("/")
   # root "posts#index"
