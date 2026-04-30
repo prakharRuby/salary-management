@@ -4,6 +4,8 @@ import api from "./services/api";
 function App() {
   const [employees, setEmployees] = useState([]);
   const [insights, setInsights] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState("");
 
   useEffect(() => {
     api.get("/insights", { params: { country: "India" } })
@@ -17,6 +19,17 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    api.get("/metadata").then((res) => {
+      setCountries(res.data.countries);
+    });
+  }, []);
+
+  useEffect(() => {
+  api.get("/insights", { params: { country } })
+    .then((res) => setInsights(res.data));
+}, [country]);
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>Salary Management Dashboard</h1>
@@ -26,7 +39,12 @@ function App() {
         <p>Max: {insights.max}</p>
         <p>Avg: {insights.avg}</p>
       </div>
-
+    <select value={country} onChange={(e) => setCountry(e.target.value)}>
+      <option value="">All Countries</option>
+      {countries.map((c) => (
+        <option key={c} value={c}>{c}</option>
+      ))}
+    </select>
       {employees.map((emp) => (
         <div key={emp.id}>
           {emp.full_name} - {emp.job_title} - ₹{emp.salary}
