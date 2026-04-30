@@ -249,7 +249,7 @@ GEM
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    sqlite3 (1.4.2)
+    sqlite3 (1.6)
     stringio (3.2.0)
     thor (1.5.0)
     timeout (0.6.1)
