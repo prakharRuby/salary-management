@@ -9,6 +9,10 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def index
+    render json: Employee.all
+  end
+
   private
 
   def employee_params
