@@ -13,6 +13,29 @@ class EmployeesController < ApplicationController
     render json: Employee.all
   end
 
+  def show
+    @employee = Employee.find_by(id:params[:id])
+    return head :not_found unless @employee
+    render json: @employee
+  end
+
+  def update
+    @employee = Employee.find_by(id:params[:id])
+    return head :not_found unless @employee
+    if @employee.update(employee_params)
+      render json: @employee
+    else
+      render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @employee = Employee.find_by(id:params[:id])
+    return head :not_found unless @employee
+    @employee.destroy
+    head :no_content
+  end
+
   private
 
   def employee_params
