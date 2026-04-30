@@ -15,6 +15,8 @@ function App() {
   const [page, setPage] = useState(1);
   const [openForm, setOpenForm] = useState(false);
   const [editEmployee, setEditEmployee] = useState(null);
+  const [countries, setCountries] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
 
   const [country, setCountry] = useState("");
@@ -32,10 +34,16 @@ function App() {
       }
     });
 
+    const meta = await api.get("/metadata");
+
+    setCountries(meta.data.countries);
+    setJobs(meta.data.job_titles);
+
     setEmployees(emp.data);
     setFiltered(emp.data);
     setInsights(insight.data);
   };
+
 
   useEffect(() => {
     load();
@@ -84,17 +92,19 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <select value={country} onChange={(e) => setCountry(e.target.value)}>
-          <option value="">Country</option>
-          <option value="India">India</option>
-          <option value="USA">USA</option>
-        </select>
+      <select value={country} onChange={(e) => setCountry(e.target.value)}>
+  <option value="">Country</option>
+  {countries.map((c) => (
+    <option key={c} value={c}>{c}</option>
+  ))}
+</select>
 
-        <select value={job} onChange={(e) => setJob(e.target.value)}>
-          <option value="">Job</option>
-          <option value="Engineer">Engineer</option>
-          <option value="Manager">Manager</option>
-        </select>
+<select value={job} onChange={(e) => setJob(e.target.value)}>
+  <option value="">Job</option>
+  {jobs.map((j) => (
+    <option key={j} value={j}>{j}</option>
+  ))}
+</select>
 
         <button onClick={openAdd}>Add</button>
       </div>
