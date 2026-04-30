@@ -1,0 +1,15 @@
+current directory: /home/prakhar/Desktop/salary-management/salary_backend/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+/home/prakhar/.rvm/rubies/ruby-3.1.1/bin/ruby -I /home/prakhar/.rvm/rubies/ruby-3.1.1/lib/ruby/3.1.0 -r ./siteconf20260430-1118748-r1cwkt.rb extconf.rb
+creating Makefile
+
+current directory: /home/prakhar/Desktop/salary-management/salary_backend/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= clean
+
+current directory: /home/prakhar/Desktop/salary-management/salary_backend/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\=
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/prakhar/Desktop/salary-management/salary_backend/vendor/bundle/ruby/3.1.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= install
+/usr/bin/install -m 0755 cparse.so ./.gem.20260430-1118748-ygm9wf/racc
