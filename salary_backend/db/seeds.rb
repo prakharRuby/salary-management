@@ -13,11 +13,17 @@ last_names  = File.readlines(Rails.root.join("last_names.txt"), chomp: true)
 job_titles = ["Engineer", "Manager", "HR", "Designer"]
 countries = ["India", "USA", "UK", "Canada"]
 
+records = []
+
 10_000.times do
-  Employee.create!(
+  records << {
     full_name: "#{first_names.sample} #{last_names.sample}",
     job_title: job_titles.sample,
     country: countries.sample,
-    salary: rand(30000..150000)
-  )
+    salary: rand(30000..150000),
+    created_at: Time.now,
+    updated_at: Time.now
+  }
 end
+
+Employee.insert_all(records)
