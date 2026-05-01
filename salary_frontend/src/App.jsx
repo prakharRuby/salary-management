@@ -31,6 +31,7 @@ function App() {
       if (job) params.job_title = job;
 
       const emp = await api.get("/employees", { params });
+      console.log("EMP RESPONSE:", emp.data); // 👈 ADD HERE
 
       const insight = await api.get("/insights", {
         params: { country, job_title: job },
