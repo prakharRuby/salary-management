@@ -37,36 +37,44 @@ function EmployeeTable({ employees, refresh, onEdit }) {
           </tr>
         </thead>
 
-        <tbody>
-          {employees?.map((emp, index) => (
-            <tr
-              key={emp.id}
-              style={{
-                borderBottom: "1px solid #eee",
-                background: index % 2 === 0 ? "#fff" : "#fafafa"
-              }}
-            >
-              <td>{emp.full_name}</td>
-              <td>{emp.job_title}</td>
-              <td>{emp.country}</td>
-              <td>{emp.salary}</td>
-              <td>
-                <button
-                  style={{ ...btn, background: "#1976d2", color: "white" }}
-                  onClick={() => onEdit(emp)}
-                >
-                  Edit
-                </button>
-
-                <button
-                  style={{ ...btn, background: "#d32f2f", color: "white" }}
-                  onClick={() => deleteEmployee(emp.id)}
-                >
-                  Delete
-                </button>
+       <tbody>
+          {!employees || employees.length === 0 ? (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                No employees found
               </td>
             </tr>
-          ))}
+          ) : (
+            employees.map((emp, index) => (
+              <tr
+                key={emp.id}
+                style={{
+                  borderBottom: "1px solid #eee",
+                  background: index % 2 === 0 ? "#fff" : "#fafafa"
+                }}
+              >
+                <td>{emp.full_name}</td>
+                <td>{emp.job_title}</td>
+                <td>{emp.country}</td>
+                <td>{emp.salary}</td>
+                <td>
+                  <button
+                    style={{ ...btn, background: "#1976d2", color: "white" }}
+                    onClick={() => onEdit(emp)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    style={{ ...btn, background: "#d32f2f", color: "white" }}
+                    onClick={() => deleteEmployee(emp.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
