@@ -13,9 +13,9 @@ RSpec.describe "Insights API", type: :request do
       json = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
-      expect(json["min"]).to eq(10000)
-      expect(json["max"]).to eq(30000)
-      expect(json["avg"]).to eq(20000)
+      expect(json["min_salary"]).to eq(10000)
+      expect(json["max_salary"]).to eq(30000)
+      expect(json["avg_salary"]).to eq(20000)
     end
 
     it "returns average salary for a job title within a country" do
@@ -24,7 +24,7 @@ RSpec.describe "Insights API", type: :request do
       json = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
-      expect(json["avg"]).to eq(20000)
+      expect(json["avg_salary"]).to eq(20000)
     end
   end
 end
