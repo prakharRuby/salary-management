@@ -51,5 +51,15 @@ RSpec.describe "Employees API", type: :request do
     end
   end
 
+  it "returns 404 for non-existent employee" do
+    get "/employees/999999"
+    expect(response).to have_http_status(:not_found)
+  end
+
+  it "returns 400 for invalid params" do
+    post "/employees", params: { employee: { salary: -10 } }
+    expect(response).to have_http_status(:bad_request)
+  end
+
 end
 
