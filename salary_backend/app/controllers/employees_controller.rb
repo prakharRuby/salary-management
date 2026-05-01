@@ -9,25 +9,27 @@ class EmployeesController < ApplicationController
     end
   end
 
-  def index
-    employees = Employee.all
-    if params[:search].present?
-      employees = employees.where("full_name ILIKE ?", "%#{params[:search]}%")
-    end
-    employees = employees.where(country: params[:country]) if params[:country].present?
-    employees = employees.where(job_title: params[:job_title]) if params[:job_title].present?
+def index
+  employees = Employee.all
 
-    employees = employees.page(params[:page]).per(10)
-
-    render json: {
-      data: employees,
-      meta: {
-        page: employees.current_page,
-        per_page: 10,
-        total: employees.total_count
-      }
-    }
+  if params[:search].present?
+    employees = employees.where("full_name ILIKE ?", "%#{params[:search]}%")
   end
+
+  employees = employees.where(country: params[:country]) if params[:country].present?
+  employees = employees.where(job_title: params[:job_title]) if params[:job_title].present?
+
+  employees = employees.page(params[:page]).per(10)
+
+  render json: {
+    data: employees,
+    meta: {
+      page: employees.current_page,
+      per_page: 10,
+      total: employees.total_count
+    }
+  }
+end
 
   def show
     @employee = Employee.find_by(id:params[:id])
