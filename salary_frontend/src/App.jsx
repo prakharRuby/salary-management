@@ -21,6 +21,7 @@ function App() {
   const [country, setCountry] = useState("");
   const [job, setJob] = useState("");
 
+  // ✅ LOAD EMPLOYEES + INSIGHTS
   const load = async () => {
     try {
       const params = { page };
@@ -35,32 +36,33 @@ function App() {
         params: { country, job_title: job },
       });
 
-      useEffect(() => {
-        const loadMeta = async () => {
-        const metaData = await api.get("/metadata");
-        setCountries(metaData.data.countries || []);
-        setJobs(metaData.data.job_titles || []);
-      };
-
-  loadMeta();
-}, []);
-
-      setEmployees(emp.data.data);
-      setMeta(emp.data.meta);
-      setInsights(insight.data);
-
-      setCountries(metaData.data.countries || []);
-      setJobs(metaData.data.job_titles || []);
+      setEmployees(emp.data.data || []);
+      setMeta(emp.data.meta || {});
+      setInsights(insight.data || {});
     } catch (err) {
       console.error("Error loading data:", err);
     }
   };
 
+  // ✅ LOAD METADATA (ONLY ONCE)
+  useEffect(() => {
+    const loadMeta = async () => {
+      try {
+        const metaData = await api.get("/metadata");
+        setCountries(metaData.data.countries || []);
+        setJobs(metaData.data.job_titles || []);
+      } catch (err) {
+        console.error("Metadata error:", err);
+      }
+    };
+
+    loadMeta();
+  }, []);
+
+  // ✅ LOAD DATA WHEN FILTERS CHANGE
   useEffect(() => {
     load();
   }, [page, search, country, job]);
-
-
 
   const openAdd = () => {
     setEditEmployee(null);
@@ -73,11 +75,10 @@ function App() {
   };
 
   const totalPages = Math.ceil(
-    ((meta?.total) || 0) / ((meta?.per_page) || 10)
+    (meta?.total || 0) / (meta?.per_page || 10)
   );
 
   return (
-    
     <div style={{ padding: "20px", background: "#f5f7fb", minHeight: "100vh" }}>
       <h2>Salary Dashboard</h2>
 
@@ -101,7 +102,7 @@ function App() {
           }}
         >
           <option value="">Country</option>
-          {countries.map((c) => (
+          {countries?.map((c) => (
             <option key={c} value={c}>
               {c}
             </option>
@@ -116,7 +117,7 @@ function App() {
           }}
         >
           <option value="">Job</option>
-          {jobs.map((j) => (
+          {jobs?.map((j) => (
             <option key={j} value={j}>
               {j}
             </option>
