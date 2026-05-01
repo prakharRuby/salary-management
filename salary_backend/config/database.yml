@@ -10,6 +10,6 @@ test:
   <<: *default
   database: salary_test
 
-pproduction:
+production:
   adapter: postgresql
   url: <%= ENV["DATABASE_URL"] %>
