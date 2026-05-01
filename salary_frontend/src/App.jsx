@@ -37,7 +37,7 @@ function App() {
         params: { country, job_title: job },
       });
 
-      setEmployees(emp.data.data || []);
+      setEmployees(Array.isArray(emp.data) ? emp.data : emp.data.data);
       setMeta(emp.data.meta || {});
       setInsights(insight.data || {});
     } catch (err) {
