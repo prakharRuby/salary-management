@@ -53,7 +53,7 @@ function App() {
     load();
   }, [page, search, country, job]);
 
-  const totalPages = Math.ceil((meta.total || 0) / (meta.per_page || 10));
+
 
   const openAdd = () => {
     setEditEmployee(null);
