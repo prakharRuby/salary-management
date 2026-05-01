@@ -23,20 +23,27 @@ function App() {
 
   const load = async () => {
     try {
-      const emp = await api.get("/employees", {
-        params: {
-          page,
-          search,
-          country,
-          job_title: job,
-        },
-      });
+      const params = { page };
+
+      if (search) params.search = search;
+      if (country) params.country = country;
+      if (job) params.job_title = job;
+
+      const emp = await api.get("/employees", { params });
 
       const insight = await api.get("/insights", {
         params: { country, job_title: job },
       });
 
-      const metaData = await api.get("/metadata");
+      useEffect(() => {
+        const loadMeta = async () => {
+        const metaData = await api.get("/metadata");
+        setCountries(metaData.data.countries || []);
+        setJobs(metaData.data.job_titles || []);
+      };
+
+  loadMeta();
+}, []);
 
       setEmployees(emp.data.data);
       setMeta(emp.data.meta);
@@ -70,6 +77,7 @@ function App() {
   );
 
   return (
+    
     <div style={{ padding: "20px", background: "#f5f7fb", minHeight: "100vh" }}>
       <h2>Salary Dashboard</h2>
 
