@@ -65,6 +65,10 @@ function App() {
     setOpenForm(true);
   };
 
+  const totalPages = Math.ceil(
+    ((meta?.total) || 0) / ((meta?.per_page) || 10)
+  );
+
   return (
     <div style={{ padding: "20px", background: "#f5f7fb", minHeight: "100vh" }}>
       <h2>Salary Dashboard</h2>
