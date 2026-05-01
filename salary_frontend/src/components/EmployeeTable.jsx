@@ -38,7 +38,7 @@ function EmployeeTable({ employees, refresh, onEdit }) {
         </thead>
 
         <tbody>
-          {employees.map((emp, index) => (
+          {employees?.map((emp, index) => (
             <tr
               key={emp.id}
               style={{

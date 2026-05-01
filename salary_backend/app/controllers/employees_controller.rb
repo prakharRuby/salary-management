@@ -10,7 +10,15 @@ class EmployeesController < ApplicationController
   end
 
   def index
-    render json: Employee.all
+    employees = Employee.page(params[:page]).per(10)
+
+    render json: {
+      data: employees,
+      meta: {
+        page: params[:page].to_i,
+        total: employees.total_count
+      }
+    }
   end
 
   def show
