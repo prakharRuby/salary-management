@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import api from "./services/api";
 
-import DashboardCards from "./components/DashboardCards";
 import EmployeeTable from "./components/EmployeeTable";
 import EmployeeForm from "./components/EmployeeForm";
+import InsightsPanel from "./components/InsightsPanel";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -83,7 +83,7 @@ function App() {
     <div style={{ padding: "20px", background: "#f5f7fb", minHeight: "100vh" }}>
       <h2>Salary Dashboard</h2>
 
-      <DashboardCards insights={insights} />
+     <InsightsPanel insights={insights} />
 
       <div style={{ display: "flex", gap: "10px", margin: "15px 0" }}>
         <input
